@@ -1,2 +1,48 @@
 # Module-giai-ma-MT8870
-Code tham khảo module giải mã MT8870
+-Code tham khảo module giải mã MT8870
+-// Kết nối: 
+-//DTMF   Arduino 
+-//Q1       7
+-//Q2       6 
+-//Q3       5 
+-//Q4       4 
+-//StQ      3 
+-//VCC      5V 
+-//GND      GND 
+-//  Nạp code vào Arduino. Mở Serial Monitor chọn No line ending, baud 9600. 
+-//  Kết nối điện thoại có gắn sim có thể nghe gọi được với module DTMF8870 bằng jack âm thanh 3.5 2 đầu đực. 
+-//  Dùng một điệnt thoại khác gọi đến số đã kết nối với module DTMF8870. 
+-//  Chấp nhận cuộc gọi. 
+-//  Trên điện thoại dùng để gọi bấm các phím 1 2 3 4 5 6 7 8 9 * 0 # để kiểm tra. 
+-void setup() {  
+-Serial.begin(9600);  
+-pinMode(3, INPUT);  
+-pinMode(4, INPUT);  
+-pinMode(5, INPUT);  
+-pinMode(6, INPUT);  
+-pinMode(7, INPUT); 
+-} 
+-void loop() {  
+-uint8_t number;  bool signal ;    
+-signal = digitalRead(7);  
+-if(signal == HIGH)  /* If new pin pressed */   
+-{   
+-delay(250);    
+-number = ( 0x00 | (digitalRead(3)<<0) | (digitalRead(4)<<1) | (digitalRead(5)<<2) | (digitalRead(6)<<3) );      
+-switch (number)      
+-{        
+--case 0x01:        Serial.println("Pin Pressed : 1");        break;        
+--case 0x02:        Serial.println("Pin Pressed : 2");        break;        
+--case 0x03:        Serial.println("Pin Pressed : 3");        break;        
+--case 0x04:        Serial.println("Pin Pressed : 4");        break;        
+--case 0x05:        Serial.println("Pin Pressed : 5");        break;        
+--case 0x06:        Serial.println("Pin Pressed : 6");        break;        
+--case 7:        Serial.println("Pin Pressed : 7");        break;        
+--case 0x08:        Serial.println("Pin Pressed : 8");        break;        
+--case 0x09:        Serial.println("Pin Pressed : 9");        break;        
+--case 0x0A:        Serial.println("Pin Pressed : 0");        break;        
+--case 0x0B:        Serial.println("Pin Pressed : *");        break;        
+--case 0x0C:        Serial.println("Pin Pressed : #");        break;          
+-}  
+-} 
+-}
